@@ -1,4 +1,5 @@
-# product-bulk-editor
+# Bulk Editor App
+### Based on Vue.js, example for products editing
 
 ## Project setup
 ```
@@ -19,6 +20,3 @@ yarn build
 ```
 yarn lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

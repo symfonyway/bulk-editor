@@ -1,17 +1,23 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <BulkEditor :app-data="appData" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import BulkEditor from './components/bulkEditor/BulkEditor'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    BulkEditor
+  },
+  data() {
+    return {
+      appData: {
+        defaultSiteId: '1'
+      }
+    }
   }
 }
 </script>
