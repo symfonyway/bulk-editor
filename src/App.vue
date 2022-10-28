@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h1 class="pb-4 fw-bold">Product Bulk Editor</h1>
     <BulkEditor :app-data="appData" />
   </div>
 </template>
@@ -29,6 +30,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  height: 100vh;
+  padding-top: 50px;
 }
 </style>

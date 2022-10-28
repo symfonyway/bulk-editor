@@ -22,9 +22,9 @@
             </b-form-invalid-feedback>
         </b-col>
         <b-col v-if="!quickForm">
-            <button class="new-style-btn green-solid slight-rounded admin-btn" @click="$emit('apply', newValue)" :disabled="isBulkUpdateDisabled || newValue === null">
+            <b-button variant="dark" class="border-white"  @click="$emit('apply', newValue)" :disabled="isBulkUpdateDisabled || newValue === null">
                 update products {{ selectedCount }}
-            </button>
+            </b-button>
         </b-col>
     </b-row>
 </template>
@@ -53,15 +53,3 @@
         }
     };
 </script>
-
-<style scoped lang="scss">
-    .checkbox-icon-group__content {
-        padding: 14px 14px 14px 8px;
-        display: flex;
-        align-items: center;
-
-        &:after {
-            display: none;
-        }
-    }
-</style>

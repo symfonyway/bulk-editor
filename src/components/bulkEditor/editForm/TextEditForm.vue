@@ -10,9 +10,9 @@
             </b-form-invalid-feedback>
         </b-col>
         <b-col v-if="!quickForm">
-            <button class="new-style-btn green-solid slight-rounded admin-btn" @click="$emit('apply', newValue)" :disabled="isBulkUpdateDisabled">
+            <b-button variant="dark" class="border-white"  @click="$emit('apply', newValue)" :disabled="isBulkUpdateDisabled">
                 update products {{ selectedCount }}
-            </button>
+            </b-button>
         </b-col>
     </b-row>
 </template>
@@ -41,18 +41,3 @@
         }
     };
 </script>
-
-<style scoped lang="scss">
-    .text-input {
-        height: 45px;
-        min-width: 80px;
-    }
-
-    .input-group {
-        &::v-deep {
-            .input-group-text {
-                font-size: .75rem;
-            }
-        }
-    }
-</style>

@@ -15,7 +15,6 @@
             </b-form-invalid-feedback>
         </b-col>
         <b-col v-if="!quickForm">
-<!--            <button v-if="quickForm" class="new-style-btn green-solid slight-rounded admin-btn" @click="$emit('save')" :disabled="isValid === false || !hasChanges">Save</button>-->
             <button class="new-style-btn green-solid slight-rounded admin-btn" @click="$emit('apply', newValue)" :disabled="isBulkUpdateDisabled">
                 update products {{ selectedCount }}
             </button>
@@ -62,38 +61,3 @@
     };
 </script>
 
-<style scoped lang="scss">
-    .checkbox-group {
-        &::v-deep {
-            .custom-checkbox {
-                padding-left: 0;
-                margin-bottom: .35rem;
-                margin-right: .35rem;
-
-                .custom-control-input:checked {
-                    ~ .custom-control-label {
-                        background-color: #1c9cd2;
-                        color: #ffffff;
-                        &::before {
-                            border-color: #1c9cd2!important;
-                        }
-                    }
-                }
-
-                .custom-control-label {
-                    border: 1px solid #ddd;
-                    border-radius: 3px;
-                    padding: 5px 5px 5px 30px;
-                    cursor: pointer;
-
-                    &::before,
-                    &::after {
-                        top: .35rem;
-                        left: .5rem;
-                        border-radius: 2px!important;
-                    }
-                }
-            }
-        }
-    }
-</style>

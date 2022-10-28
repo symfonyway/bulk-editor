@@ -4,7 +4,7 @@
             <b-col sm="4" md="3" class="attribute-list-wrapper">
                 <bulk-editor-attribute-list @change="activeAttribute = $event" :app-data="appData" :site="siteId" :product-errors="productValuesErrors" class="mb-3"/>
             </b-col>
-            <b-col class="mr-sm-3">
+            <b-col class="border border-black mr-sm-3 bg-dark text-white rounded-2">
                 <bulk-editor-product-list
                     v-if="activeAttribute"
                     :active-attribute="activeAttribute"
@@ -12,7 +12,6 @@
                     :product-errors="productValuesErrors"
                     :initial-filter="initialFilterValues"
                     @change-value="productValueChange"
-                    @change-site="siteId = $event"
                     @reset-product-list-selection="resetProductValuesForUpdate"
                     ref="productListRef"
                 />
@@ -20,7 +19,7 @@
         </b-row>
 
         <div v-if="editingProductsCount > 0" class="fixed-bottom d-inline-block bg-dark p-2 save-cancel-block slight-rounded">
-            <button :disabled="isSavingBulk || editingProductsCount === 0" class="new-style-btn green-solid slight-rounded px-5 py-2 mr-2" @click="saveValidProductAttributes">
+            <button :disabled="isSavingBulk || editingProductsCount === 0" class="new-style-btn green-solid slight-rounded px-5 py-2 me-2" @click="saveValidProductAttributes">
                 <b-spinner v-if="isSavingBulk" small></b-spinner>
                 {{ isSavingBulk ? 'Saving...' : 'Save all' }}
             </button>
@@ -344,29 +343,3 @@ export default {
   }
 };
 </script>
-
-<style scoped lang="scss">
-    .save-cancel-block {
-        right: 1.25rem;
-        left: auto;
-        bottom: 20px;
-        z-index: 100;
-        font-size: 0.9em;
-
-        @media (max-width: 540px) {
-            right: 0;
-            left: 0;
-            text-align: center;
-        }
-        @media (max-width: 991px) {
-            bottom: 72px;
-        }
-    }
-
-    .attribute-list-wrapper {
-        @media (max-width: 540px) {
-            padding-right: 0;
-            padding-left: 0;
-        }
-    }
-</style>

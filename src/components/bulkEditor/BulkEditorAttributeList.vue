@@ -1,12 +1,12 @@
 <template>
-    <b-list-group flush class="mb-2">
-        <b-list-group-item disabled class="d-none d-sm-block bg-secondary text-white text-center rounded-top px-1 attribute-list-title">Select what you want to edit</b-list-group-item>
-        <b-list-group-item disabled class="d-block d-sm-none font-weight-bold text-dark rounded-top py-3">Select what you want to edit</b-list-group-item>
-        <b-list-group-item v-for="(attr, index) in attributes" :key="attr.key" :active="attr.isActive" action @click="changeAttribute(attr)" :class="[{'rounded-bottom': index + 1 === attributes.length}, 'd-flex justify-content-between align-items-center']">
+    <b-button-group vertical class="border border-black bg-dark text-white rounded px-3 pb-3">
+        <div class="px-4 py-3 outline border-bottom border-white mb-3">Select what you want to edit</div>
+        <hr class="dropdown-divider">
+        <b-button variant="dark" v-for="(attr) in attributes" :key="attr.key" :active="attr.isActive" action @click="changeAttribute(attr)">
             {{ attr.label }}
             <b-badge v-if="attributeErrorCount(attr.key) > 0" variant="danger" pill>{{ attributeErrorCount(attr.key) }}</b-badge>
-        </b-list-group-item>
-    </b-list-group>
+        </b-button>
+    </b-button-group>
 </template>
 
 <script>
@@ -175,32 +175,10 @@
         },
         created () {
             // initiate attribute sidebar with attribute from query string. If not set the name is used as default
+        },
+        mounted () {
+            this.attributes[0].isActive = true;
+            this.$emit('change', { ...abstractAttribute, ...this.attributes[0]});
         }
     };
 </script>
-
-<style scoped lang="scss">
-    .list-group {
-        &::v-deep {
-            .list-group-item {
-                &.active {
-                    background-color: #1c9cd2;
-                    border-color: #1c9cd2;
-                }
-                > .badge {
-                    float: none;
-                    font-size: 75%!important;
-                    height: auto;
-                }
-            }
-            .list-group-item-action {
-                cursor: pointer;
-            }
-        }
-    }
-
-    .attribute-list-title {
-        padding-top: 20px;
-        padding-bottom: 20px;
-    }
-</style>

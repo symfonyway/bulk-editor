@@ -1,5 +1,5 @@
 <template>
-    <b-row>
+    <b-row class="mt-4">
         <b-col cols="12" class="mb-2">
             <b-form-tags
                 :tag-validator="validateSingleTag"
@@ -85,53 +85,3 @@
         }
     };
 </script>
-
-<style scoped lang="scss">
-    .form-input-tags {
-        &::v-deep {
-            padding: 3px 4px;
-
-            .list-unstyled {
-                height: 100%;
-
-                .badge {
-                    background-color: #eee;
-                    border: 1px solid #ddd;
-                    color: #555555;
-                    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-                    display: flex!important;
-                    flex-flow: row-reverse;
-                    align-items: center!important;
-                    border-radius: 3px !important;
-                    height: 100%;
-                    padding: 0;
-
-                    .b-form-tag-content {
-                        line-height: 32px;
-                        border-left: 1px dotted #555;
-                        padding-left: 6px;
-                        padding-right: 6px;
-                        font-size: 13px;
-                        font-weight: 600;
-                    }
-
-                    .b-form-tag-remove {
-                        margin-right: 8px;
-                        margin-left: 8px!important;
-                    }
-                }
-            }
-
-            .b-form-tags-input {
-                text-indent: 8px;
-            }
-            .b-form-tags-button {
-                line-height: 35px;
-            }
-
-            &.focus {
-                box-shadow: none;
-            }
-        }
-    }
-</style>

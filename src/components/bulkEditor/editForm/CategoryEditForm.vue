@@ -7,10 +7,9 @@
             </b-form-invalid-feedback>
         </b-col>
         <b-col v-if="!quickForm" class="my-2">
-<!--            <button v-if="quickForm" class="new-style-btn green-solid slight-rounded admin-btn" @click="$emit('save')" :disabled="isValid === false || !hasChanges">Save</button>-->
-            <button class="new-style-btn green-solid slight-rounded admin-btn" @click="$emit('apply', $refs.inputField.value)" :disabled="isBulkUpdateDisabled || !localValue">
+            <b-button variant="dark" class="border-white" @click="$emit('apply', $refs.inputField.value)" :disabled="isBulkUpdateDisabled || !localValue">
                 update products {{ selectedCount }}
-            </button>
+            </b-button>
         </b-col>
     </b-row>
 </template>
@@ -60,31 +59,3 @@
         }
     };
 </script>
-
-<style lang="scss">
-    .bootstrap-4 {
-        .category-tree__dropdown {
-            &.open,
-            .open {
-                > .dropdown-menu {
-                    display: block;
-                }
-            }
-
-            .dropdown-toggle {
-                min-height: 45px;
-
-                &::after {
-                    display: none;
-                }
-            }
-
-            .dropdown-item {
-                &:hover,
-                &:active {
-                    background-color: transparent;
-                }
-            }
-        }
-    }
-</style>

@@ -1,31 +1,31 @@
 <template>
     <div id="vue-app-wrapper" class="vue-app-styles">
         <b-table
-                :id="tableId"
-                :items="overrideItems || tableDataProvider"
-                :fields="tableFields"
-                :class="tableClass"
-                :current-page="overrideItems ? null : currentPage"
-                :per-page="overrideItems ? null : perPage"
-                :filter="filter"
-                :busy="isDataLoading"
-                :hover="hover"
-                :sort-by.sync="sortBy"
-                :sort-desc.sync="sortDesc"
-                :selectable="selectable"
-                caption-top
-                show-empty
-                v-bind="$attrs"
-                :striped="striped"
-                :borderless="borderless"
-                :bordered="bordered"
-                ref="paginatedTable"
-                @refreshed="$emit('refreshed', {totalRows: overrideTotalRows || totalRows})"
-                @sort-changed="onSortChange"
-                stacked="md"
+            :id="tableId"
+            :items="overrideItems || tableDataProvider"
+            :fields="tableFields"
+            :class="tableClass"
+            :current-page="overrideItems ? null : currentPage"
+            :per-page="overrideItems ? null : perPage"
+            :filter="filter"
+            :busy="isDataLoading"
+            :hover="hover"
+            :sort-by.sync="sortBy"
+            :sort-desc.sync="sortDesc"
+            :selectable="selectable"
+            caption-top
+            show-empty
+            v-bind="$attrs"
+            :striped="striped"
+            :borderless="borderless"
+            :bordered="bordered"
+            ref="paginatedTable"
+            @refreshed="$emit('refreshed', {totalRows: overrideTotalRows || totalRows})"
+            @sort-changed="onSortChange"
+            stacked="md"
         >
             <template v-for="(_, scopedSlotName) in $slots" v-slot:[scopedSlotName]="slotData">
-                <slot :name="scopedSlotName" v-bind="slotData" />
+                <slot :name="scopedSlotName" v-bind="slotData"></slot>
             </template>
             <template v-slot:table-busy v-if="!$slots.hasOwnProperty('table-busy')">
                 <div class="text-center text-primary my-5">
@@ -83,7 +83,10 @@
             },
             // custom set of items, only for specific use!
             overrideItems: Array,
-            overrideTotalRows: Number,
+            overrideTotalRows: {
+                type: Number || null,
+                default: null
+            },
             // Attention: this property should be set only once to avoid double-request
             perPage: {
                 type: Number,
@@ -232,14 +235,3 @@
         }
     };
 </script>
-
-<style scoped lang="scss">
-    .vue-app-styles {
-        background-color: #ffffff;
-        padding: 20px 0;
-
-        .page-jump-block {
-            margin: 0 0 0 30px;
-        }
-    }
-</style>

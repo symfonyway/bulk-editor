@@ -21,10 +21,9 @@
             </b-form-invalid-feedback>
         </b-col>
         <b-col v-if="!quickForm">
-<!--            <button v-if="quickForm" class="new-style-btn green-solid slight-rounded admin-btn" @click="$emit('save')" :disabled="isValid === false || !hasChanges">Save</button>-->
-            <button class="new-style-btn green-solid slight-rounded admin-btn" @click="$emit('apply', {...bulkValue})" :disabled="isBulkUpdateDisabled || currentPriceValue === ''">
+            <b-button variant="dark" class="border-white"  @click="$emit('apply', {...bulkValue})" :disabled="isBulkUpdateDisabled || currentPriceValue === ''">
                 update products {{ selectedCount }}
-            </button>
+            </b-button>
         </b-col>
     </b-row>
 </template>
@@ -112,22 +111,3 @@
         }
     };
 </script>
-
-<style scoped lang="scss">
-    .text-input {
-        height: 45px;
-        max-width: 90px;
-    }
-
-    .input-group-text {
-        &::v-deep {
-            .custom-control-label {
-                &::after,
-                &::before {
-                    top: 0.5rem;
-                    left: -.9rem;
-                }
-            }
-        }
-    }
-</style>

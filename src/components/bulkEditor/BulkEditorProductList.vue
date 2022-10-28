@@ -1,7 +1,7 @@
 <template>
     <div>
         <bulk-editor-product-filter @change="productListFilterChanged" :initial-values="initialFilter"/>
-        <b-row class="bg-white rounded" ref="tableWrapper">
+        <b-row class="bg-dark text-white rounded" ref="tableWrapper">
             <b-col cols="12">
                 <div class="editing-notice py-2 d-flex justify-content-between align-items-center">
                     <div v-html="editingMessage"></div>
@@ -33,11 +33,11 @@
                         </b-row>
                     </b-col>
 
-                    <b-col cols="12" class="d-flex flex-sm-row-reverse flex-sm-row flex-column">
+                    <b-col cols="12" class="d-flex flex-sm-row-reverse flex-sm-row flex-column" v-if="productListSelection.length > 0">
                         <button type="button" class="btn btn-outline-success bulk-edit-row__btn slight-rounded ml-sm-4 mt-3" @click="selectAllCurrentProducts">
                             Select all products
                         </button>
-                        <button type="button" class="btn btn-outline-danger bulk-edit-row__btn slight-rounded ml-0 mt-3" @click="deselectBulkProducts" v-if="productListSelection.length > 0">
+                        <button type="button" class="btn btn-outline-danger bulk-edit-row__btn slight-rounded ml-0 mt-3" @click="deselectBulkProducts">
                             Reset selection
                         </button>
                     </b-col>
@@ -51,8 +51,8 @@
                         :table-fields="filteredTableFields"
                         :per-page="resultCount"
                         :page="tablePage"
-                        api-url="/api/admin/products/find"
-                        :override-items="currentFailedProducts"
+                        api-url=""
+                        :override-items="overrideItems"
                         :hover="false"
                         :filter="tableFilter"
                         :tbody-tr-class="rowClass"
@@ -63,6 +63,7 @@
                     >
                         <template v-slot:cell(image)="data">
                             <div class="image-column__block">
+                                <div class="text-white">Hello</div>
                                 <b-img rounded fluid :src="data.value" :alt="data.item.name"></b-img>
                             </div>
                             <div class="d-sm-none pt-2 pt-sm-0 pl-sm-2 image-column__name">
@@ -158,19 +159,65 @@
                         key: 'image',
                         label: 'Image',
                         thClass: 'd-none',
-                        tdClass: 'image-column'
+                        tdClass: 'text-white'
                     },
                     {
                         key: 'name',
                         label: 'Name',
                         thClass: 'd-none',
-                        tdClass: 'property-column'
+                        tdClass: 'text-white'
                     },
                     {
                         key: 'checkbox',
                         thClass: 'd-none',
-                        tdClass: 'bulk-check'
+                        tdClass: 'text-white'
                     }
+                ],
+                overrideItems: [                
+                    {
+                        "type": "favorite",
+                        "date": "2022-08-01 08:31:36",
+                        "timeago": "3 months ago",
+                        "message": "1 person has favorited Webfont testtt.",
+                        "product_id": 399148,
+                        "name": "Webfont testtt",
+                        "image": "https://cyber.pressball.by/wp-content/uploads/2021/03/npn9pnege2b31-scaled.jpg",
+                        "url": "https://cyber.pressball.by/wp-content/uploads/2021/03/npn9pnege2b31-scaled.jpg",
+                        "viewed": true
+                    },
+                    {
+                        "type": "comment",
+                        "date": "2022-04-18 15:55:58",
+                        "timeago": "6 months ago",
+                        "message": "1 person has commented on .",
+                        "product_id": 59,
+                        "name": "",
+                        "image": "https://cybersport.metaratings.ru/upload/iblock/1e7/1e75882bee94870e29318f7a272e100b.jpg",
+                        "url": "https://cybersport.metaratings.ru/upload/iblock/1e7/1e75882bee94870e29318f7a272e100b.jpg",
+                        "viewed": true
+                    },
+                    {
+                        "type": "favorite",
+                        "date": "2022-04-12 01:09:04",
+                        "timeago": "7 months ago",
+                        "message": "1 person has favorited night city.",
+                        "product_id": 401000,
+                        "name": "night city",
+                        "image": "http://www.gamedeus.ru/images/games/D/dota-2/dota-2-art-08.JPG",
+                        "url": "http://www.gamedeus.ru/images/games/D/dota-2/dota-2-art-08.JPG",
+                        "viewed": true
+                    },
+                    {
+                        "type": "sale",
+                        "date": "2022-04-04 13:03:40",
+                        "timeago": "7 months ago",
+                        "message": "1 person bought $11 product",
+                        "product_id": 400718,
+                        "name": "$11 product",
+                        "image": "https://yandex.by/images/search?from=tabbar&text=Dota%202%20%D0%B0%D1%80%D1%82%D1%8B&pos=6&img_url=http%3A%2F%2Fggdt.ru%2Ffile%2F2021%2F03%2F015310_.jpg&rpt=simage&lr=157",
+                        "url": "https://yandex.by/images/search?from=tabbar&text=Dota%202%20%D0%B0%D1%80%D1%82%D1%8B&pos=6&img_url=http%3A%2F%2Fggdt.ru%2Ffile%2F2021%2F03%2F015310_.jpg&rpt=simage&lr=157",
+                        "viewed": true
+                    },
                 ],
                 tableFilter: [],
                 tableFilterReady: false,
@@ -380,264 +427,6 @@
                 this.editingMessage = this.generateEditText();
                 this.currentFailedProducts = null;
             }
-        },
-        created () {
-            // control initial page number by query string parameter
         }
     };
 </script>
-
-<style scoped lang="scss">
-    .product-list {
-        padding: 0;
-        width: 100%;
-
-        &::v-deep {
-            [data-label] {
-                @media (max-width: 540px) {
-                    &:before {
-                        width: 25% !important;
-                    }
-                    > div {
-                        width: calc(75%) !important;
-                    }
-                }
-            }
-            .image-column {
-                width: 195px;
-                padding-left: 15px;
-                padding-right: 0;
-                vertical-align: top!important;
-                &__block {
-                    max-width: 180px;
-                    > img {
-                        max-width: 180px;
-                    }
-                }
-            }
-
-            .property-column {
-                vertical-align: top!important;
-                text-align: left;
-                padding: 16px 15px 12px;
-            }
-
-            .bulk-check {
-                width: 90px;
-            }
-
-            .changed-product-attribute {
-                background-color: rgb(240, 248, 255);
-            }
-
-            .product-name {
-                font-size: 0.9em;
-                background-color: #F5F5F5;
-                word-break: break-word;
-            }
-
-            // custom styles for pagination
-            .table-pagination-wrapper {
-                background-color: #F1F3FA;
-                padding-bottom: 3rem;
-                padding-right: 1rem;
-
-                .b-pagination-pills {
-                    margin-bottom: 0 !important;
-                    .page-item {
-                        .page-link {
-                            border-radius: 3px!important;
-                            border-color: #F1F3FA;
-                            padding: .75rem .95rem;
-                            font-weight: bold;
-                            color: #999;
-
-                            &:hover {
-                                background-color: #1c9cd2;
-                                color: #fff;
-                            }
-                        }
-
-                        &.active {
-                            .page-link {
-                                background-color: #1c9cd2;
-                                color: #fff;
-                            }
-                        }
-
-                        &.page-np {
-                            .page-link {
-                                padding: .75rem .65rem;
-                            }
-                        }
-
-                        &.disabled {
-                            .page-link {
-                                background-color: #ddd;
-                            }
-                        }
-                    }
-                }
-            }
-
-            @media (max-width: 540px) {
-                tbody {
-                    display: block;
-
-                    tr {
-                        display: flex;
-                        flex-wrap: wrap;
-                        justify-content: space-between;
-
-                        &.b-table-busy-slot {
-                            > td {
-                                width: 100%;
-                            }
-                        }
-
-                        .image-column {
-                            //flex: 0 0 85%;
-                            width: 100%;
-                            text-align: left;
-                            display: flex;
-                            &__block {
-                                max-width: 150px;
-                                flex: 0 0 40%;
-                                > img {
-                                    max-width: 150px;
-                                }
-                            }
-                            &__name {
-                                flex: 0 0 60%;
-                                display: flex;
-                                align-items: center;
-                            }
-                        }
-
-                        .property-column {
-                            order: 3;
-                            width: 100%;
-                            border-top: 0;
-                            padding: 0 20px 0.75rem;
-                        }
-                        .bulk-check {
-                            order: 2;
-                            //flex: 0 0 15%;
-                            width: 100%;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    .hover-state {
-        min-width: 180px;
-        &:hover {
-            span:first-child {
-                display: none !important;
-            }
-            span:last-child {
-                display: block !important;
-            }
-        }
-    }
-
-    .editing-notice {
-        font-size: 1rem;
-        padding-left: 5px;
-        height: 60px;
-
-        .alert {
-            line-height: 33px;
-            font-size: .9rem;
-        }
-    }
-
-    .bulk-edit-row {
-        border-bottom: 2px solid #dee2e6;
-        border-top: 1px solid #dee2e6;
-
-        &__image {
-            width: 150px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 90px;
-
-            &-placeholder {
-                text-align: center;
-                font-size: 1rem;
-                font-weight: bold;
-            }
-
-            @media (max-width: 540px) {
-                width: 100%;
-            }
-        }
-
-        &__check {
-            width: 60px;
-        }
-
-        &__form {
-            border-top: 1px solid #dee2e6 !important;
-
-            @media (min-width: 540px) {
-                border-top: 0 !important;
-                border-left: 1px solid #dee2e6 !important;
-                padding-right: 90px;
-            }
-        }
-
-        &__btn {
-            font-size: .9em;
-            font-weight: 700;
-            padding: .85rem 1.5rem;
-
-            &.btn-outline-success {
-                border-color: #5ac651;
-                &:hover {
-                    background-color: #5ac651;
-                }
-            }
-        }
-
-        .selection-list {
-            &__product {
-                background: #efefef;
-                display: inline-block;
-                margin: 3px;
-                padding: 3px;
-                span {
-                    text-overflow: ellipsis;
-                    overflow: hidden;
-                    max-width: 170px;
-                    white-space: nowrap;
-                    font-size: .8em;
-                    vertical-align: middle;
-                    display: inline-block;
-                    padding: 0 3px;
-                }
-                &-remove {
-                    padding: 3px 5px;
-                    border-left: 1px solid #ddd;
-                    cursor: pointer;
-                    color: #999;
-                    font-weight: normal;
-                }
-            }
-        }
-    }
-
-    .bg-gray-table {
-        background-color: #F1F3FA;
-    }
-
-    .tooltip.b-tooltip.bs-tooltip-top {
-        margin-bottom: 5px;
-    }
-</style>
