@@ -47,10 +47,9 @@
             </b-form-invalid-feedback>
         </b-col>
         <b-col v-if="!quickForm">
-<!--            <button v-if="quickForm" class="new-style-btn green-solid slight-rounded admin-btn" @click="$emit('save')" :disabled="isValid === false || !hasChanges">Save</button>-->
-            <button class="new-style-btn green-solid slight-rounded admin-btn" @click="onApply" :disabled="isBulkUpdateDisabled">
+            <b-button variant="dark" class="border-white"  @click="onApply" :disabled="isBulkUpdateDisabled">
                 update products {{ selectedCount }}
-            </button>
+            </b-button>
         </b-col>
     </b-row>
 </template>
@@ -115,64 +114,3 @@
         }
     };
 </script>
-
-<style scoped lang="scss">
-    .multi-select-form {
-        &::v-deep {
-            padding: 0;
-
-            .dropdown-toggle {
-                min-height: 45px;
-                padding: 4px 2.5rem 4px 4px;
-                background-size: 20px 10px;
-                background-position: calc(100% - 15px) 50%;
-                background-repeat: no-repeat;
-                background-image: url(https://fbcd.co/images/icons/down-arrow-black.svg) !important;
-
-                &::after {
-                    display: none;
-                }
-            }
-
-            .dropdown-menu {
-                max-height: 350px;
-                overflow-y: scroll;
-            }
-
-            .list-unstyled {
-                height: 100%;
-                min-height: 33px;
-
-                .badge {
-                    top: 0;
-                    background-color: #eee;
-                    padding: 0.25em 0.7em;
-                    /*border: 1px solid #ddd;*/
-                    color: #555555;
-                    font-family: "Open Sans", sans-serif;
-                    font-weight: normal;
-                    display: flex!important;
-                    align-items: center!important;
-                    border-radius: 3px !important;
-                    height: 100%;
-
-                    .b-form-tag-content {
-                        line-height: 18px;
-                        font-size: .8rem;
-                        color: #000;
-                    }
-
-                    .b-form-tag-remove {
-                        margin-left: 6px!important;
-                    }
-                }
-            }
-        }
-
-        &__empty {
-            text-align: left;
-            padding: 3px 13px;
-            color: #999;
-        }
-    }
-</style>
