@@ -24,7 +24,7 @@
             @sort-changed="onSortChange"
             stacked="md"
         >
-            <template v-for="(_, scopedSlotName) in $slots" v-slot:[scopedSlotName]="slotData">
+            <template v-for="(_, scopedSlotName) in $scopedSlots" slot-scope="slotData" :slot="scopedSlotName">
                 <slot :name="scopedSlotName" v-bind="slotData"></slot>
             </template>
             <template v-slot:table-busy v-if="!$slots.hasOwnProperty('table-busy')">

@@ -53,6 +53,7 @@
                         :page="tablePage"
                         api-url=""
                         :override-items="overrideItems"
+                        :override-total-rows="overrideItems.length"
                         :hover="false"
                         :filter="tableFilter"
                         :tbody-tr-class="rowClass"
@@ -61,7 +62,7 @@
                         ref="productsTable"
                         @page-changed="pageChanged"
                     >
-                        <template v-slot:cell(image)="data">
+                        <template #cell(image)="data">
                             <div class="image-column__block">
                                 <div class="text-white">Hello</div>
                                 <b-img rounded fluid :src="data.value" :alt="data.item.name"></b-img>
@@ -71,7 +72,7 @@
                                 <i v-if="data.item.publishingDate" v-b-tooltip.hover="'Not published product'" class="fa fa-hourglass-half"></i>
                             </div>
                         </template>
-                        <template v-slot:cell(name)="data">
+                        <template #cell(name)="data">
                             <b-row class="d-none d-sm-flex">
                                 <b-col>
                                     <span class="font-weight-bold rounded p-1 px-2 product-name">{{ data.value }}</span>
@@ -96,7 +97,7 @@
                                 </b-col>
                             </b-row>
                         </template>
-                        <template v-slot:cell(checkbox)="data">
+                        <template #cell(checkbox)="data">
                             <b-form-checkbox
                                 v-if="activeAttribute.bulkFormComponent && activeAttribute.isAbleEditProduct(data.item, formConfig)"
                                 name="productListSelection"
@@ -106,7 +107,7 @@
                                 @change="addRemoveSelectedProductData($event, data.item)"
                             />
                         </template>
-                        <template v-slot:table-busy>
+                        <template #table-busy>
                             <i class="fas fa-spinner fa-pulse fa-stack fa-3x"></i>
                         </template>
                     </paginated-table>
@@ -379,7 +380,7 @@
                 return JSON.parse(JSON.stringify(this.getAttrValueFromObject(item)));
             },
             getAttrValueFromObject (item) {
-                if (this.activeAttribute.hasOwn('keyMap') && !item.hasOwn(this.attributeName)) {
+                if (Object.hasOwn(this.activeAttribute, 'keyMap') && !Object.hasOwn(item, this.attributeName)) {
                     const dataObject = {};
 
                     this.activeAttribute.keyMap.forEach(key => {
@@ -399,7 +400,7 @@
 
                 this.currentFailedProducts = Object.entries(this.productErrors).map(item => {
                     const [key, value] = item;
-                    return value.hasOwn(this.attributeName) ? key : null;
+                    return Object.hasOwn(value, this.attributeName) ? key : null;
                 }).filter(value => null !== value)
                 .map(value => this.productListSelectionValues[value]);
             },
