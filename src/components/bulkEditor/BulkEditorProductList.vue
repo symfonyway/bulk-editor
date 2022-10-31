@@ -174,7 +174,7 @@
                         tdClass: 'text-white'
                     }
                 ],
-                overrideItems: [                
+                overrideItems: [
                     {
                         "type": "favorite",
                         "date": "2022-08-01 08:31:36",
