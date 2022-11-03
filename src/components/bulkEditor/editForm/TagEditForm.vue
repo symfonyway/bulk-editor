@@ -5,6 +5,7 @@
                 :tag-validator="validateSingleTag"
                 invalid-tag-text=""
                 :state="isValid"
+                tagClass="text-white bg-dark"
                 :value="valueArray"
                 @input="onChange"
                 @tag-state="tagState"
@@ -85,3 +86,15 @@
         }
     };
 </script>
+
+
+<style lang="scss" scoped>
+.b-form-tags {
+    &::v-deep {
+        .close.b-form-tag-remove {
+            background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity));
+            border: none;
+        }
+    }
+}
+</style>

@@ -2,13 +2,17 @@
     <b-row>
         <b-col cols="12" :xl="!quickForm ? 8 : 12">
             <b-form-group>
-                <b-form-checkbox-group
-                    :checked="currentValue"
-                    @input="onChange"
-                    :options="options"
-                    :state="isValid"
-                    class="checkbox-group no-select default-style"
-                ></b-form-checkbox-group>
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <b-form-checkbox-group
+                            :checked="currentValue"
+                            @input="onChange"
+                            :options="options"
+                            :state="isValid"
+                            class="checkbox-group no-select default-style"
+                        ></b-form-checkbox-group>
+                    </div>
+                </div>
             </b-form-group>
             <b-form-invalid-feedback :state="isValid">
                 <div v-for="(error, key) in errors" :key="key">{{ error.message }}</div>
@@ -61,3 +65,10 @@
     };
 </script>
 
+<style lang="scss" scoped>
+.input-group-append {
+    .input-group-text {
+        border-radius: 0 0.375rem 0.375rem 0;
+    }
+}
+</style>

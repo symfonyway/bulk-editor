@@ -1,12 +1,12 @@
 <template>
     <b-row>
         <b-col cols="12" xl="8">
-            <b-form-tags :value="initialValue" @input="onChange" no-outer-focus class="multi-select-form my-2">
+            <b-form-tags :value="initialValue" @input="onChange">
                 <template v-slot="{ tags, addTag, disabled, removeTag }">
-                    <b-dropdown size="sm" variant="outline" no-flip lazy block menu-class="w-100">
+                    <b-dropdown size="sm" variant="outline">
                         <template v-slot:button-content>
-                            <ul v-if="tags.length > 0" class="list-unstyled d-flex flex-wrap align-items-center m-0">
-                                <li v-for="tag in tags" :key="tag" class="d-inline-flex align-items-baseline m-1">
+                            <ul v-if="tags.length > 0">
+                                <li v-for="tag in tags" :key="tag">
                                     <b-form-tag
                                         @remove="removeTag(tag)"
                                         @click.prevent
@@ -16,7 +16,7 @@
                                     >{{ tag }}</b-form-tag>
                                 </li>
                             </ul>
-                            <div v-else class="multi-select-form__empty">
+                            <div v-else>
                                 Nothing selected
                             </div>
                         </template>
@@ -34,7 +34,7 @@
                             :key="key"
                             @click="onOptionClick({ option, addTag })"
                         >
-                            {{ option }}
+                            <div>{{ option }}</div>
                         </b-dropdown-item-button>
                         <b-dropdown-text v-if="options.length === 0">
                             There are not tags
@@ -47,7 +47,7 @@
             </b-form-invalid-feedback>
         </b-col>
         <b-col v-if="!quickForm">
-            <b-button variant="dark" class="border-white"  @click="onApply" :disabled="isBulkUpdateDisabled">
+            <b-button variant="dark" @click="onApply" :disabled="isBulkUpdateDisabled">
                 update products {{ selectedCount }}
             </b-button>
         </b-col>
@@ -114,3 +114,22 @@
         }
     };
 </script>
+
+<style scoped lang="scss">
+  .b-form-tags {
+        &::v-deep {
+            display: flex !important;
+
+            .b-dropdown.btn-group {
+                width: 100%;
+
+                    button.dropdown-toggle {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: space-between;
+                    }
+            }
+        }
+    }
+</style>

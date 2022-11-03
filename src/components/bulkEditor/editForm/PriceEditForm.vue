@@ -11,7 +11,9 @@
                     <div class="input-group">
                         <b-form-input :state="isCorpPriceValid" :value="corpDisplayValue" @input="onChangeCorp" ref="inputField" :formatter="formatPrice" :disabled="isDisabled" class="text-input" placeholder="$" />
                         <div class="input-group-append">
-                            <b-form-checkbox class="input-group-text default-style" :checked="!isDisabled" @change="changeInputState" />
+                            <div :class="[isDisabled ? 'input-group-text' : 'input-group-text bg-white']">
+                                <b-form-checkbox class="default-style" :checked="!isDisabled" @change="changeInputState" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -62,10 +64,10 @@
                 return this.isDisabled ? '' : this.currentCorpValue;
             },
             isPriceValid: function () {
-                return this.errors.hasOwn('price') ? false : null;
+                return Object.hasOwn(this.errors, 'price') ? false : null;
             },
             isCorpPriceValid: function () {
-                return this.errors.hasOwn('corp') ? false : null;
+                return Object.hasOwn(this.errors, 'corp') ? false : null;
             },
             getErrorsArr: function () {
                 let errors = [];
@@ -111,3 +113,11 @@
         }
     };
 </script>
+
+<style lang="scss" scoped>
+.input-group-append {
+    .input-group-text {
+        border-radius: 0 0.375rem 0.375rem 0;
+    }
+}
+</style>

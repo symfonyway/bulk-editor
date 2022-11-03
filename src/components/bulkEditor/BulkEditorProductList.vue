@@ -33,11 +33,11 @@
                         </b-row>
                     </b-col>
 
-                    <b-col cols="12" class="d-flex flex-sm-row-reverse flex-sm-row flex-column" v-if="productListSelection.length > 0">
+                    <b-col cols="12" class="d-flex flex-sm-row-reverse flex-sm-row flex-column">
                         <button type="button" class="btn btn-outline-success bulk-edit-row__btn slight-rounded ml-sm-4 mt-3" @click="selectAllCurrentProducts">
                             Select all products
                         </button>
-                        <button type="button" class="btn btn-outline-danger bulk-edit-row__btn slight-rounded ml-0 mt-3" @click="deselectBulkProducts">
+                        <button type="button" class="btn btn-outline-danger bulk-edit-row__btn slight-rounded ml-0 mt-3 me-2" @click="deselectBulkProducts" v-if="productListSelection.length > 0">
                             Reset selection
                         </button>
                     </b-col>
@@ -63,49 +63,46 @@
                         @page-changed="pageChanged"
                     >
                         <template #cell(image)="data">
-                            <div class="image-column__block">
-                                <div class="text-white">Hello</div>
-                                <b-img rounded fluid :src="data.value" :alt="data.item.name"></b-img>
-                            </div>
-                            <div class="d-sm-none pt-2 pt-sm-0 pl-sm-2 image-column__name">
-                                <span class="font-weight-bold rounded p-1 px-2 product-name">{{ data.item.name }}</span>
-                                <i v-if="data.item.publishingDate" v-b-tooltip.hover="'Not published product'" class="fa fa-hourglass-half"></i>
-                            </div>
+                            <b-img rounded fluid :src="data.value" :alt="data.item.name"></b-img>
                         </template>
                         <template #cell(name)="data">
                             <b-row class="d-none d-sm-flex">
                                 <b-col>
-                                    <span class="font-weight-bold rounded p-1 px-2 product-name">{{ data.value }}</span>
+                                    <span>{{ data.value }}</span>
                                     <i v-if="data.item.publishingDate" v-b-tooltip.hover="'Not published product'" class="fa fa-hourglass-half"></i>
                                 </b-col>
                             </b-row>
                             <b-row class="mt-sm-3">
-                                <b-col>
+                                <b-col v-if="activeAttribute.isAbleEditProduct(data.item, formConfig)">
                                     <component
-                                        v-if="activeAttribute.isAbleEditProduct(data.item, formConfig)"
                                         :is="activeAttribute.quickFormComponent"
                                         :value="getProductDataFromTableItem(data.item)"
                                         :key="attributeName + data.item.id"
                                         :index="attributeName + data.item.id"
                                         :errors="(productErrors[data.item.id] && productErrors[data.item.id][attributeName]) || []"
                                         :config="formConfig"
-                                        :hasChanges="productValues[data.item.id] && productValues[data.item.id].hasOwn(attributeName)"
+                                        :hasChanges="productValues[data.item.id] && Object.hasOwn(productValues[data.item.id], attributeName)"
                                         quickForm
                                         @change="singleValueChange(data.item.id, $event, data.item)"
                                     />
-                                    <div v-else>Can't edit this product</div>
+                                </b-col>
+                                <b-col v-else>
+                                    <div>Can't edit this product</div>
                                 </b-col>
                             </b-row>
                         </template>
                         <template #cell(checkbox)="data">
-                            <b-form-checkbox
-                                v-if="activeAttribute.bulkFormComponent && activeAttribute.isAbleEditProduct(data.item, formConfig)"
-                                name="productListSelection"
-                                size="lg"
-                                v-model="productListSelectionModel"
-                                :value="data.item.id"
-                                @change="addRemoveSelectedProductData($event, data.item)"
-                            />
+                            <div class="input-group">
+                                <div class="input-group-text bg-white">
+                                    <b-form-checkbox
+                                        v-if="activeAttribute.bulkFormComponent && activeAttribute.isAbleEditProduct(data.item, formConfig)"
+                                        name="productListSelection"
+                                        v-model="productListSelectionModel"
+                                        :value="data.item.id"
+                                        @change="addRemoveSelectedProductData($event, data.item)"
+                                    />
+                                </div>
+                            </div>
                         </template>
                         <template #table-busy>
                             <i class="fas fa-spinner fa-pulse fa-stack fa-3x"></i>
@@ -160,64 +157,84 @@
                         key: 'image',
                         label: 'Image',
                         thClass: 'd-none',
-                        tdClass: 'text-white'
+                        tdClass: 'text-white w-25'
                     },
                     {
                         key: 'name',
                         label: 'Name',
                         thClass: 'd-none',
-                        tdClass: 'text-white'
+                        tdClass: 'text-white text-left'
                     },
                     {
                         key: 'checkbox',
                         thClass: 'd-none',
-                        tdClass: 'text-white'
+                        tdClass: 'text-white align-middle'
                     }
                 ],
                 overrideItems: [
                     {
-                        "type": "favorite",
-                        "date": "2022-08-01 08:31:36",
-                        "timeago": "3 months ago",
-                        "message": "1 person has favorited Webfont testtt.",
-                        "product_id": 399148,
-                        "name": "Webfont testtt",
-                        "image": "https://cyber.pressball.by/wp-content/uploads/2021/03/npn9pnege2b31-scaled.jpg",
-                        "url": "https://cyber.pressball.by/wp-content/uploads/2021/03/npn9pnege2b31-scaled.jpg",
-                        "viewed": true
+                        type: "favorite",
+                        date: "2022-08-01 08:31:36",
+                        timeago: "3 months ago",
+                        description: "1 person has favorited Webfont testtt.",
+                        category: "Dota 2",
+                        id: 1,
+                        name: "Bristle Back",
+                        image: 'https://i.ytimg.com/vi/93YrB74b3Xo/maxresdefault.jpg',
+                        url: 'https://i.ytimg.com/vi/93YrB74b3Xo/maxresdefault.jpg',
+                        viewed: true,
+                        price: "15",
+                        corp: "88",
+                        tags: "Dota 2,Lol,Bristle",
+                        themes: ['Animals']
                     },
                     {
-                        "type": "comment",
-                        "date": "2022-04-18 15:55:58",
-                        "timeago": "6 months ago",
-                        "message": "1 person has commented on .",
-                        "product_id": 59,
-                        "name": "",
-                        "image": "https://cybersport.metaratings.ru/upload/iblock/1e7/1e75882bee94870e29318f7a272e100b.jpg",
-                        "url": "https://cybersport.metaratings.ru/upload/iblock/1e7/1e75882bee94870e29318f7a272e100b.jpg",
-                        "viewed": true
+                        type: "favorite",
+                        date: "2022-08-01 08:31:36",
+                        timeago: "3 months ago",
+                        description: "1 person has favorited Webfont testtt.",
+                        category: "Dota 2",
+                        id: 2,
+                        name: "Rubick",
+                        image: 'https://wallpapercave.com/wp/wp9566806.jpg',
+                        url: 'https://wallpapercave.com/wp/wp9566806.jpg',
+                        viewed: true,
+                        price: "15",
+                        corp: "88",
+                        tags: "Dota 2,Lol,Rubick",
+                        themes: ['Animals']
                     },
                     {
-                        "type": "favorite",
-                        "date": "2022-04-12 01:09:04",
-                        "timeago": "7 months ago",
-                        "message": "1 person has favorited night city.",
-                        "product_id": 401000,
-                        "name": "night city",
-                        "image": "http://www.gamedeus.ru/images/games/D/dota-2/dota-2-art-08.JPG",
-                        "url": "http://www.gamedeus.ru/images/games/D/dota-2/dota-2-art-08.JPG",
-                        "viewed": true
-                    },
+                        type: "favorite",
+                        date: "2022-08-01 08:31:36",
+                        timeago: "3 months ago",
+                        description: "1 person has favorited Webfont testtt.",
+                        category: "Dota 2",
+                        id: 3,
+                        name: "Dark Seer",
+                        image: "https://i.pinimg.com/736x/8b/71/bf/8b71bf30f06165e5d6ab835984b8a6ab.jpg",
+                        url: "https://i.pinimg.com/736x/8b/71/bf/8b71bf30f06165e5d6ab835984b8a6ab.jpg",
+                        viewed: true,
+                        price: "15",
+                        corp: "88",
+                        tags: "Dota 2,Lol,Dark Seer",
+                        themes: ['Animals']
+                    },                    
                     {
-                        "type": "sale",
-                        "date": "2022-04-04 13:03:40",
-                        "timeago": "7 months ago",
-                        "message": "1 person bought $11 product",
-                        "product_id": 400718,
-                        "name": "$11 product",
-                        "image": "https://yandex.by/images/search?from=tabbar&text=Dota%202%20%D0%B0%D1%80%D1%82%D1%8B&pos=6&img_url=http%3A%2F%2Fggdt.ru%2Ffile%2F2021%2F03%2F015310_.jpg&rpt=simage&lr=157",
-                        "url": "https://yandex.by/images/search?from=tabbar&text=Dota%202%20%D0%B0%D1%80%D1%82%D1%8B&pos=6&img_url=http%3A%2F%2Fggdt.ru%2Ffile%2F2021%2F03%2F015310_.jpg&rpt=simage&lr=157",
-                        "viewed": true
+                        type: "favorite",
+                        date: "2022-08-01 08:31:36",
+                        timeago: "3 months ago",
+                        description: "1 person has favorited Webfont testtt.",
+                        category: "Dota 2",
+                        id: 4,
+                        name: "Shadow Fiend",
+                        image: "https://kibersport.net/wp-content/uploads/2020/07/ikhsan-oktrian-shadow-fiend.jpg",
+                        url: "https://kibersport.net/wp-content/uploads/2020/07/ikhsan-oktrian-shadow-fiend.jpg",
+                        viewed: true,
+                        price: "15",
+                        corp: "88",
+                        tags: "Dota 2,Lol,Shadow Fiend",
+                        themes: ["[]"]
                     },
                 ],
                 tableFilter: [],
@@ -228,9 +245,9 @@
                 productListSelectionValues: {}, // Product data of selected items
                 currentFailedProducts: null,
                 tablePaginatorConfig: {
-                    pills: true,
-                    limit: 7,
-                    showJumper: true,
+                    pills: false,
+                    limit: 4,
+                    showJumper: false,
                     'hide-ellipsis': true,
                     'last-class': 'hidden',
                     'first-class': 'hidden',
@@ -266,7 +283,7 @@
                 return Object.keys(this.productValues).length;
             },
             errorsCount: function () {
-                return Object.values(this.productErrors).filter(value => value.hasOwn(this.attributeName)).length;
+                return Object.values(this.productErrors).filter(value => Object.hasOwn(value, this.attributeName)).length;
             },
             resultCount: function () {
                 // get products per page number from filter component
@@ -331,7 +348,7 @@
              * @return {*}
              */
             customBulkValueChange (data, productId) {
-                const currentValue = (this.productValues[productId] && this.productValues[productId].hasOwn(this.attributeName))
+                const currentValue = (this.productValues[productId] && Object.hasOwn(this.productValues[productId], this.attributeName))
                     ? this.productValues[productId][this.attributeName]
                     : this.getAttrValueFromObject(this.productListSelectionValues[productId]);
 
@@ -350,7 +367,7 @@
             rowClass (item, type) {
                 if (!item || type !== 'row') return;
 
-                return this.productValues[item.id] && this.productValues[item.id].hasOwn(this.attributeName) ? 'changed-product-attribute' : '';
+                return this.productValues[item.id] && Object.hasOwn(this.productValues[item.id], this.attributeName) ? 'changed-product-attribute' : '';
             },
             selectAllCurrentProducts () {
                 // Get local Items from paginatedTable via the $refs
@@ -372,7 +389,7 @@
             },
             // get actual active attribute value for quickForm component
             getProductDataFromTableItem (dataItem) {
-                const item = this.productValues[dataItem.id] && this.productValues[dataItem.id].hasOwn(this.attributeName)
+                const item = this.productValues[dataItem.id] && Object.hasOwn(this.productValues[dataItem.id], this.attributeName)
                     ? this.productValues[dataItem.id]
                     : dataItem;
 

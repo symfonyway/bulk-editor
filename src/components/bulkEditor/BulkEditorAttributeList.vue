@@ -170,7 +170,7 @@
                 this.$emit('change', { ...abstractAttribute, ...clickedAttr});
             },
             attributeErrorCount (attrKey) {
-                return Object.values(this.productErrors).filter(value => value.hasOwn(attrKey)).length;
+                return Object.values(this.productErrors).filter(value => Object.hasOwnProperty.call(value, attrKey)).length;
             }
         },
         created () {

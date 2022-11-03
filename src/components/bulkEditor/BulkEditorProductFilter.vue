@@ -127,7 +127,7 @@
                 ])
             },
             resetFilter (name = null) {
-                if (name && this.hasOwn(name)) {
+                if (name && Object.hasOwn(this, name)) {
                     this[name].value = this[name].initialValue;
                 } else {
                     this.siteFilter.value = this.siteFilter.initialValue;

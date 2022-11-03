@@ -47,7 +47,7 @@ export default {
 
     // for each product change we should set validation rules
     for (let productId in this.productValuesForUpdate) {
-      if (this.productValuesForUpdate[productId].hasOwn(this.activeAttribute.key)) {
+      if (Object.hasOwn(this.productValuesForUpdate[productId], this.activeAttribute.key)) {
         let attributeValidators = {...this.attributeValidators(this.productValuesForUpdate[productId][this.activeAttribute.key], this.productInitialValues[productId][this.activeAttribute.key])};
 
         validationSchema['productValuesForUpdate'][productId] = {
@@ -198,12 +198,12 @@ export default {
         let processedProduct = {...product};
 
         switch (true) {
-          case processedProduct.hasOwn('priceCorp'):
+          case Object.hasOwn(processedProduct, 'priceCorp'):
             processedProduct.price = product.priceCorp.price;
             processedProduct.corp = product.priceCorp.corp;
             delete processedProduct.priceCorp;
             break;
-          case processedProduct.hasOwn('addOnsAndCorp'):
+          case Object.hasOwn(processedProduct, 'addOnsAndCorp'):
             processedProduct.addOns = product.addOnsAndCorp.addOns;
             delete processedProduct.addOnsAndCorp;
             break;

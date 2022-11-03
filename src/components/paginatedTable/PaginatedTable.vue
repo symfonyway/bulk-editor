@@ -25,7 +25,7 @@
             stacked="md"
         >
             <template v-for="(_, scopedSlotName) in $scopedSlots" slot-scope="slotData" :slot="scopedSlotName">
-                <slot :name="scopedSlotName" v-bind="slotData"></slot>
+                <slot :name="scopedSlotName" v-bind="slotData"/>
             </template>
             <template v-slot:table-busy v-if="!$slots.hasOwnProperty('table-busy')">
                 <div class="text-center text-primary my-5">
@@ -48,18 +48,16 @@
                     v-on:click="scrollToTop"
                     @change="$emit('page-changed', $event)"
             >
-                <template v-slot:first-text><i class="fa fa-angle-double-left"></i></template>
-                <template v-slot:prev-text><i class="fa fa-angle-left"></i></template>
-                <template v-slot:next-text><i class="fa fa-angle-right"></i></template>
-                <template v-slot:last-text><i class="fa fa-angle-double-right"></i></template>
+                <template v-slot:first-text><b-icon icon="arrow-left"></b-icon></template>
+                <template v-slot:prev-text><b-icon icon="arrow-left-short"></b-icon></template>
+                <template v-slot:next-text><b-icon icon="arrow-right-short"></b-icon></template>
+                <template v-slot:last-text><b-icon icon="arrow-right"></b-icon></template>
             </b-pagination>
 
             <div class="page-jump-block" v-if="paginatorConfig.showJumper">
-                <div>
-                    <span class="page-jump-text">Go to page: </span>
-                    <input type="number" min="1" step="1" class="page-jump-input" v-model="pageJumpNumber">
-                    <button class="page-jump-btn new-style-btn admin-btn small-btn" @click="_ => changePage()">GO</button>
-                </div>
+                <span class="page-jump-text">Go to page: </span>
+                <input type="number" min="1" step="1" class="page-jump-input" v-model="pageJumpNumber">
+                <button class="page-jump-btn new-style-btn admin-btn small-btn" @click="_ => changePage()">GO</button>
             </div>
         </div>
     </div>
@@ -235,3 +233,9 @@
         }
     };
 </script>
+
+<style scoped>
+td {
+    vertical-align: middle !important;
+}
+</style>
