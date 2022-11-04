@@ -48,10 +48,6 @@
         data () {
             return {
                 productNamePlaceholder: 'Product name',
-                siteFilter: {
-                    value: '1',
-                    initialValue: '1'
-                },
                 productGroupFilter: {
                     value: null,
                     initialValue: null,
@@ -87,16 +83,11 @@
         },
         computed: {
             showResetButton: function () {
-                return this.siteFilter.value !== this.siteFilter.initialValue
-                    || this.productGroupFilter.value !== this.productGroupFilter.initialValue
+                return this.productGroupFilter.value !== this.productGroupFilter.initialValue
                     || this.queryFilter.value !== this.queryFilter.initialValue;
             }
         },
-        created () {
-            this.siteFilter.initialValue = this.initialValues && this.initialValues.siteId || '1';
-        },
         mounted () {
-            this.changeSiteFilter(this.siteFilter.initialValue);
             this.applyFilter();
         },
         updated () {
@@ -108,10 +99,6 @@
             applyFilter () {
                 this.displayFilterLabels();
                 this.$emit('change', [
-                    {
-                        key: 'sites',
-                        value: [this.siteFilter.value]
-                    },
                     {
                         key: 'group',
                         value: this.productGroupFilter.value
@@ -130,30 +117,11 @@
                 if (name && Object.hasOwn(this, name)) {
                     this[name].value = this[name].initialValue;
                 } else {
-                    this.siteFilter.value = this.siteFilter.initialValue;
                     this.productGroupFilter.value = this.productGroupFilter.initialValue;
                     this.queryFilter.value = this.queryFilter.initialValue;
                 }
 
                 this.applyFilter();
-            },
-            changeSiteFilter (siteValue) {
-                this.siteFilter.value = siteValue;
-                this.productGroupFilter.disabled = true;
-
-                Promise.resolve([{id: siteValue, name: 'Custom'}]).then(groupList => {
-                    this.productGroupFilter.options = [
-                        {text: 'All products', value: null},
-                        ...groupList.map(group => {
-                            return {text: group.name, value: group.id}
-                        })
-                    ];
-                    this.productGroupFilter.value = this.productGroupFilter.initialValue;
-                }).finally(() => {
-                    this.productGroupFilter.disabled = false;
-                    // apply filter right on change site filter value
-                    this.applyFilter();
-                });
             },
             toggleForm () {
                 this.popoverStyle.display = this.popoverStyle.display === 'block' ? 'none' : 'block';
@@ -163,13 +131,6 @@
             },
             displayFilterLabels () {
                 this.filterLabels = [];
-
-                this.filterLabels.push({
-                    name: 'siteFilter',
-                    removable: false,
-                    variant: this.siteFilter.value === '1' ? 'danger' : 'primary',
-                    title: this.siteFilter.value === '1' ? 'fontbundles_products' : 'designbundles_products'
-                });
 
                 if (this.productGroupFilter.value) {
                     this.filterLabels.push({

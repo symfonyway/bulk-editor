@@ -1,6 +1,6 @@
 <template>
     <div>
-        <bulk-editor-product-filter @change="productListFilterChanged" :initial-values="initialFilter"/>
+        <bulk-editor-product-filter @change="productListFilterChanged"/>
         <b-row class="bg-dark text-white rounded" ref="tableWrapper">
             <b-col cols="12">
                 <div class="editing-notice py-2 d-flex justify-content-between align-items-center">
@@ -28,7 +28,7 @@
                                 </div>
                             </b-col>
                             <b-col class="py-2 bulk-edit-row__form">
-                                <component :is="activeAttribute.bulkFormComponent" @apply="bulkValueChange" :config="formConfig" :key="attributeName+bulkFormKey" :selected-count="productListSelection.length" class="h-100 align-items-center" />
+                                <component :is="activeAttribute.bulkFormComponent" @apply="bulkValueChange" :config="formConfig" :key="attributeName" :selected-count="productListSelection.length" class="h-100 align-items-center" />
                             </b-col>
                         </b-row>
                     </b-col>
@@ -146,7 +146,6 @@
             activeAttribute: Object,
             productValues: Object,
             productErrors: Object,
-            initialFilter: Object
         },
         data () {
             return {
@@ -186,7 +185,7 @@
                         price: "15",
                         corp: "88",
                         tags: "Dota 2,Lol,Bristle",
-                        themes: ['Animals']
+                        themes: []
                     },
                     {
                         type: "favorite",
@@ -202,7 +201,7 @@
                         price: "15",
                         corp: "88",
                         tags: "Dota 2,Lol,Rubick",
-                        themes: ['Animals']
+                        themes: []
                     },
                     {
                         type: "favorite",
@@ -218,7 +217,7 @@
                         price: "15",
                         corp: "88",
                         tags: "Dota 2,Lol,Dark Seer",
-                        themes: ['Animals']
+                        themes: []
                     },                    
                     {
                         type: "favorite",
@@ -234,7 +233,7 @@
                         price: "15",
                         corp: "88",
                         tags: "Dota 2,Lol,Shadow Fiend",
-                        themes: ["[]"]
+                        themes: []
                     },
                 ],
                 tableFilter: [],
@@ -261,20 +260,11 @@
                 return this.activeAttribute.bulkFormComponent === null ? this.tableFields.filter(f => f.key !== 'checkbox') : this.tableFields;
             },
             formConfig: function () {
-                let siteId = this.initialFilter.siteId;
-
-                if (this.tableFilter.length > 0) {
-                    siteId = this.tableFilter && this.tableFilter.find(item => item.key === 'sites')['value'][0] || '1';
-                }
 
                 return {
-                    siteId,
                     attributeName: this.attributeName,
-                    options: this.activeAttribute.options && (this.activeAttribute.options[siteId] || this.activeAttribute.options[0]) || {}
+                    options: this.activeAttribute.options && this.activeAttribute.options[0] || {}
                 }
-            },
-            bulkFormKey: function () {
-                return this.formConfig.siteId;
             },
             attributeName: function () {
                 return this.activeAttribute.key;
@@ -362,7 +352,6 @@
                 // reset show errors mode
                 this.currentFailedProducts = null;
                 this.tableFilterReady = true;
-                this.$emit('change-site', this.formConfig.siteId);
             },
             rowClass (item, type) {
                 if (!item || type !== 'row') return;

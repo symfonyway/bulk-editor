@@ -1,12 +1,6 @@
 <template>
     <b-row>
-        <b-col cols="12" md="10" lg="12" xl="8">
-            <input type="hidden" :value="localValue" class="category-dropdown-ui" :data-url="getUrl" ref="inputField">
-            <b-form-invalid-feedback :state="isValid">
-                <div v-for="(error, key) in errors" :key="key">{{ error.message }}</div>
-            </b-form-invalid-feedback>
-        </b-col>
-        <b-col v-if="!quickForm" class="my-2">
+        <b-col class="my-2">
             <b-button variant="dark" class="border-white" @click="$emit('apply', $refs.inputField.value)" :disabled="isBulkUpdateDisabled || !localValue">
                 update products {{ selectedCount }}
             </b-button>
@@ -23,11 +17,6 @@
         data() {
             return {
                 localValue: null
-            }
-        },
-        computed: {
-            getUrl: function () {
-                return `/api/site/${this.config.siteId}/categories-with-bonus/1`;
             }
         },
         created () {

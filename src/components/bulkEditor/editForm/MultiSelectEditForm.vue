@@ -1,18 +1,18 @@
 <template>
     <b-row>
         <b-col cols="12" xl="8">
-            <b-form-tags :value="initialValue" @input="onChange">
+            <b-form-tags class="d-flex flex-column" ue="initialValue" @input="onChange">
                 <template v-slot="{ tags, addTag, disabled, removeTag }">
                     <b-dropdown size="sm" variant="outline">
                         <template v-slot:button-content>
-                            <ul v-if="tags.length > 0">
-                                <li v-for="tag in tags" :key="tag">
+                            <ul class="b-form-tags-list list-unstyled mb-0 d-flex flex-wrap align-items-center" v-if="tags.length > 0">
+                                <li class="badge b-form-tag d-inline-flex align-items-baseline mw-100 badge-secondary text-white bg-dark" v-for="tag in tags" :key="tag">
                                     <b-form-tag
                                         @remove="removeTag(tag)"
                                         @click.prevent
                                         :title="tag"
                                         :disabled="disabled"
-                                        variant="info"
+                                        class="b-form-tag-content flex-grow-1 text-truncate"
                                     >{{ tag }}</b-form-tag>
                                 </li>
                             </ul>
@@ -116,10 +116,26 @@
 </script>
 
 <style scoped lang="scss">
+
   .b-form-tags {
         &::v-deep {
             display: flex !important;
 
+            .close.b-form-tag-remove {
+                background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity));
+                border: none;
+            }
+
+            .dropdown-toggle {
+                padding: 4px 0 0;
+
+                .b-form-tags-list span.badge {
+                    padding: 0;
+                    margin: 0;
+                    font-size: 14px;
+                }
+            }
+        
             .b-dropdown.btn-group {
                 width: 100%;
 

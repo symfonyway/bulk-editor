@@ -27,7 +27,6 @@
         props: {
             appData: Object,
             productErrors: {},
-            site: String
         },
         data () {
             return {
@@ -154,13 +153,13 @@
         },
         computed: {
             minPriceValue: function () {
-                return this.appData.productMinPrice[this.site];
+                return this.appData.productMinPrice;
             },
             maxPriceValue: function () {
-                return this.appData.productMaxPrice[this.site];
+                return this.appData.productMaxPrice;
             },
             maxCorpPriceValue: function () {
-                return this.appData.productMaxCorpPrice[this.site];
+                return this.appData.productMaxCorpPrice;
             }
         },
         methods: {
