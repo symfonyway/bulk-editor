@@ -3,7 +3,7 @@
         <bulk-editor-product-filter @change="productListFilterChanged"/>
         <b-row class="bg-dark text-white rounded" ref="tableWrapper">
             <b-col cols="12">
-                <div class="editing-notice py-2 d-flex justify-content-between align-items-center">
+                <div class="py-2 d-flex justify-content-between align-items-center">
                     <div v-html="editingMessage"></div>
                     <b-alert v-if="errorsCount > 0" show variant="danger" class="mb-0 py-1 px-2">
                         Product with errors detected
@@ -13,21 +13,23 @@
                 </div>
             </b-col>
             <b-col cols="12" v-if="activeAttribute.bulkFormComponent">
-                <b-row class="bulk-edit-row py-3">
-                    <b-col cols="12" class="selection-list pb-3">
-                        <div class="selection-list__product" v-for="(productId) in productListSelection" :key="productId">
-                            <span>{{productListSelectionValues[productId].name}}</span>
-                            <i class="fa fa-times selection-list__product-remove" @click="removeSelectedProductData(productId)"></i>
-                        </div>
+                <b-row class="py-3">
+                    <b-col cols="12" class="pb-3">
+                        <b-row class="px-1">
+                            <b-col cols="2" class="mx-2 d-flex justify-content-between align-items-center border border-white rounded px-1" v-for="(productId) in productListSelection" :key="productId">
+                                <span>{{productListSelectionValues[productId].name}}</span>
+                                <b-icon icon="x" role="button" @click="removeSelectedProductData(productId)"></b-icon>
+                            </b-col>
+                        </b-row>
                     </b-col>
                     <b-col cols="12">
                         <b-row class="mx-0 border rounded">
-                            <b-col cols="12" sm="auto" class="">
-                                <div class="bulk-edit-row__image h-100">
-                                    <div class="bulk-edit-row__image-placeholder">Edit selected products</div>
+                            <b-col cols="12" sm="auto">
+                                <div class="h-100 d-flex justify-content-center align-items-center">
+                                    <div>Edit selected products</div>
                                 </div>
                             </b-col>
-                            <b-col class="py-2 bulk-edit-row__form">
+                            <b-col class="py-2">
                                 <component :is="activeAttribute.bulkFormComponent" @apply="bulkValueChange" :config="formConfig" :key="attributeName" :selected-count="productListSelection.length" class="h-100 align-items-center" />
                             </b-col>
                         </b-row>
@@ -58,7 +60,7 @@
                         :filter="tableFilter"
                         :tbody-tr-class="rowClass"
                         :paginator-config="tablePaginatorConfig"
-                        class="product-list mb-5"
+                        class="mb-5"
                         ref="productsTable"
                         @page-changed="pageChanged"
                     >
@@ -184,7 +186,7 @@
                         viewed: true,
                         price: "15",
                         corp: "88",
-                        tags: "Dota 2,Lol,Bristle",
+                        tags: "dota,lol,bristle",
                         themes: []
                     },
                     {
@@ -200,7 +202,7 @@
                         viewed: true,
                         price: "15",
                         corp: "88",
-                        tags: "Dota 2,Lol,Rubick",
+                        tags: "dota,lol,rubick",
                         themes: []
                     },
                     {
@@ -216,7 +218,7 @@
                         viewed: true,
                         price: "15",
                         corp: "88",
-                        tags: "Dota 2,Lol,Dark Seer",
+                        tags: "dota,lol,dark",
                         themes: []
                     },                    
                     {
@@ -232,7 +234,7 @@
                         viewed: true,
                         price: "15",
                         corp: "88",
-                        tags: "Dota 2,Lol,Shadow Fiend",
+                        tags: "dota,lol,sf",
                         themes: []
                     },
                 ],

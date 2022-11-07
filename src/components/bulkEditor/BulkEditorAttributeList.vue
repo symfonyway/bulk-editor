@@ -143,7 +143,7 @@
                         validators: {
                             maxLength: maxLength(3)
                         },
-                        options: this.appData['themes'],
+                        options: [['Dota 2', 'Lol']],
                         customErrors: {
                             maxLength: 'Maximum themes allowed'
                         }
