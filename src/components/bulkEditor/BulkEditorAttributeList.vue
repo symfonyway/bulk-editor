@@ -65,16 +65,6 @@
                         }
                     },
                     {
-                        key: 'category',
-                        label: 'Categories',
-                        isActive: false,
-                        bulkFormComponent: 'CategoryEditForm',
-                        quickFormComponent: 'CategoryEditForm',
-                        validators: {
-                            required
-                        }
-                    },
-                    {
                         key: 'priceCorp',
                         keyMap: ['price', 'corp'],
                         label: 'Prices',

@@ -121,7 +121,6 @@
     import TextEditForm from './editForm/TextEditForm';
     import PriceEditForm from './editForm/PriceEditForm';
     import TextareaEditForm from './editForm/TextareaEditForm';
-    import CategoryEditForm from './editForm/CategoryEditForm';
     import TagEditForm from './editForm/TagEditForm';
     import CheckboxGroupEditForm from './editForm/CheckboxGroupEditForm';
     import MultiSelectEditForm from './editForm/MultiSelectEditForm';
@@ -137,7 +136,6 @@
             TextEditForm,
             PriceEditForm,
             TextareaEditForm,
-            CategoryEditForm,
             TagEditForm,
             CheckboxGroupEditForm,
             MultiSelectEditForm,
@@ -178,7 +176,6 @@
                         date: "2022-08-01 08:31:36",
                         timeago: "3 months ago",
                         description: "1 person has favorited Webfont testtt.",
-                        category: "Dota 2",
                         id: 1,
                         name: "Bristle Back",
                         image: 'https://i.ytimg.com/vi/93YrB74b3Xo/maxresdefault.jpg',
@@ -194,7 +191,6 @@
                         date: "2022-08-01 08:31:36",
                         timeago: "3 months ago",
                         description: "1 person has favorited Webfont testtt.",
-                        category: "Dota 2",
                         id: 2,
                         name: "Rubick",
                         image: 'https://wallpapercave.com/wp/wp9566806.jpg',
@@ -210,7 +206,6 @@
                         date: "2022-08-01 08:31:36",
                         timeago: "3 months ago",
                         description: "1 person has favorited Webfont testtt.",
-                        category: "Dota 2",
                         id: 3,
                         name: "Dark Seer",
                         image: "https://i.pinimg.com/736x/8b/71/bf/8b71bf30f06165e5d6ab835984b8a6ab.jpg",
@@ -226,7 +221,6 @@
                         date: "2022-08-01 08:31:36",
                         timeago: "3 months ago",
                         description: "1 person has favorited Webfont testtt.",
-                        category: "Dota 2",
                         id: 4,
                         name: "Shadow Fiend",
                         image: "https://kibersport.net/wp-content/uploads/2020/07/ikhsan-oktrian-shadow-fiend.jpg",
