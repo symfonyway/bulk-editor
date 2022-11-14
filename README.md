@@ -22,9 +22,10 @@ yarn lint
 ```
 
 # A couple of screenshots of what it looks like:
-![изображение](https://user-images.githubusercontent.com/54947497/201613505-2f56b84a-924e-4c7b-a5f7-e2e51126b00e.png)
+![изображение](https://user-images.githubusercontent.com/54947497/201613898-94881c3a-b973-4892-9e6c-1f85d58f7139.png)
 ![изображение](https://user-images.githubusercontent.com/54947497/201613425-44049801-2758-4d26-a92a-7c9e59949070.png)
-![изображение](https://user-images.githubusercontent.com/54947497/201613371-4cca0fbf-2334-4c1f-92d3-bdb7c59085a3.png)
+![изображение](https://user-images.githubusercontent.com/54947497/201614039-6a1b21e7-ca41-4c1a-ab98-c42f93f1d7b6.png)
+
 
 
 
